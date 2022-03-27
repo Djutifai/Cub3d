@@ -3,40 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 13:14:06 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/05/21 20:29:05 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 18:10:18 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_free_all(int fd, char ***rest, int key)
+char	*ft_strtrunc(char *str, char c)
 {
-	int	i;
+	char	*res;
+	ssize_t	i;
+	ssize_t	j;
 
-	if (*rest != NULL && fd >= 0)
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	if (!str[i])
 	{
-		free((*rest)[fd]);
-		(*rest)[fd] = NULL;
-		i = 0;
-		while (i < 1024 && ((*rest)[i] == NULL || (*rest)[i][0] == '\0'))
-			i++;
-		if (i == 1024)
-		{
-			while (i > 0)
-			{
-				i--;
-				if ((*rest)[i] != NULL)
-				{
-					free((*rest)[i]);
-					(*rest)[i] = NULL;
-				}
-			}
-			free(*rest);
-			*rest = NULL;
-		}
+		free(str);
+		return (NULL);
 	}
-	return (key);
+	res = ft_calloc(sizeof(*res), ft_strlen(str) - i + 1);
+	if (!res)
+		return (NULL);
+	while (str[++i])
+		res[j++] = str[i];
+	free(str);
+	return (res);
 }

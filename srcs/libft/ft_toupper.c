@@ -3,25 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 16:14:48 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/16 13:03:58 by ftassada          #+#    #+#             */
+/*   Updated: 2021/04/19 17:08:35 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-static int	ft_islower_bonus(int c)
-{
-	if (c >= 97 && c <= 122)
-		return (1);
-	return (0);
-}
-
 int	ft_toupper(int c)
 {
-	if (ft_islower_bonus(c))
+	if (97 <= c && c <= 122)
 		return (c - 32);
 	return (c);
 }

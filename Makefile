@@ -1,84 +1,46 @@
-NAME = cub3d
+NAME 		= cub3d
 
-CUB = \
-	srcs/cub/draw_and_search_dz.c\
-	srcs/cub/free.c\
-	srcs/cub/init_struct.c\
-	srcs/cub/keyhook.c\
-	srcs/cub/movements.c\
-	srcs/cub/open_txt.c\
-	srcs/cub/raycasting.c\
-	srcs/cub/rotate.c\
+SRC			=$(shell find srcs/ -name "*.c")
 
-GNL = \
-	srcs/gnl/get_next_line_utils.c\
-	srcs/gnl/get_next_line.c\
+PATH_LIB 	= srcs/libft/
 
-PARS =  \
-	srcs/parser/check_map.c\
-	srcs/parser/parse_params.c\
-	srcs/parser/parse_rgb.c\
+NAME_LIB	= libft.a
 
-UTILS = \
-	srcs/utils/utils.c\
-	srcs/utils/free.c\
-	srcs/utils/str_arr_utils.c\
-	srcs/utils/str_arr_utils2.c\
-	srcs/utils/pixel.c\
+LIB			= srcs/libft/libft.a
 
-SRC =	${GNL} ${PARS} ${UTILS} ${CUB}\
-		srcs/main.c\
+OBJ			= $(patsubst %.c,%.o,${SRC})
 
-PATH_LIB = srcs/libft/
+D_FILES		= $(patsubst %.c,%.d,${SRC})
 
-NAME_LIB = libft.a
+CFLAGS 		= -Wall -Wextra -Werror -O2 -MMD
 
-LIB = srcs/libft/libft.a
+INCLUDES	= -I includes/ -I srcs/libft/ -I mlx/
 
-HDRS = srcs/cub.h
+MLX_FLAGS 	= -L . -l mlx -framework OpenGL -framework AppKit
 
-OBJ = $(SRC:c=o)
+all:		$(NAME)
 
-CC = gcc
+$(NAME):	$(OBJ)
+			echo "\n"
+			make -sC mlx
+			make -sC $(PATH_LIB)
+			mv mlx/libmlx.dylib .
+			$(CC) $(FLAGS) $(MLX_FLAGS) ${INCLUDES} $(OBJ) $(LIB) -I. -o $(NAME)
 
-CFLAGS = -Wall -Wextra -Werror
-
-MLX_FLAGS = -L mlx -l mlx -framework OpenGL -framework AppKit
-
-all: $(NAME)
-
-$(NAME): $(OBJ) $(HDRS)
-	@echo "\n"
-	@make -C mlx 2>/dev/null
-	@make -C $(PATH_LIB)
-	@echo "\033[0;32mCompiling cub3d...✅"
-	@$(CC) $(FLAGS) $(MLX_FLAGS) -I mlx $(OBJ) $(LIB) -I. -o $(NAME)
-	@echo "\n\033[0;33m🥂Done and ready!🥂"
-
-%.o: %.c
-	@printf "\033[0;33mGenerating cub3d objects 🔜 %-33.33s\r" $@
-	@${CC} ${CFLAGS} -c $< -o $@
+%.o: 		%.c Makefile
+			${CC} ${CFLAGS} -c $< -o $@ ${INCLUDES}
 
 clean:
-	@echo "\033[0;31mCleaning libft..."
-	@make clean -C $(PATH_LIB)
-	@echo "\033[0;31mCleaning mlx..."
-	@make clean -C mlx
-	@echo "\nRemoving binaries..."
-	@rm -f $(OBJ)
-	@echo "\n\033[0;32mCleaning process is competed!"
+			@make clean -C $(PATH_LIB)
+			@make clean -C mlx
+			@rm -f $(OBJ) $(D_FILES)
 
-fclean: clean
-	@echo "\033[0;31m🧹Cleaning libft🧹..."
-	@make fclean -C $(PATH_LIB)
-	@echo "\nDeleting executable..."
-	@rm -f $(NAME)
-	@echo "\n\033[0;32mF_cleaning process is competed!"
+fclean: 	clean
+			@make fclean -C $(PATH_LIB)
+			@rm -f $(NAME) libmlx.dylib
 
-re:		fclean all
+re:			fclean all
 
-reclean: re
-	$(RM) $(OBJ)
-	make clean -C $(PATH_LIB)
+include		$(wildcard ${D_FILES})
 
-.PHONY: all clean fclean
+.PHONY: all clean fclean re

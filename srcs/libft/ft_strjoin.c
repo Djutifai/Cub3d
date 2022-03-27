@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 16:12:06 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/20 11:33:59 by ftassada          #+#    #+#             */
+/*   Updated: 2021/04/20 13:12:35 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,25 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*strjoin;
-	int		first_len;
-	int		second_len;
-	int		i;
+	char	*str;
+	size_t	s1len;
+	size_t	s2len;
 
-	if (!s1 || !s2)
+	s1len = 0;
+	s2len = 0;
+	if (s1)
+		s1len = ft_strlen(s1);
+	if (s2)
+		s2len = ft_strlen(s2);
+	str = (char *)ft_calloc(s1len + s2len + 1, sizeof(char));
+	if (!str)
 		return (NULL);
-	i = 0;
-	first_len = ft_strlen(s1);
-	second_len = ft_strlen(s2);
-	strjoin = malloc(sizeof(char) * (first_len + second_len + 1));
-	if (strjoin == NULL)
-		return (NULL);
-	while (i < first_len)
-	{
-		strjoin[i] = s1[i];
-		i++;
-	}
-	while (i < (first_len + second_len))
-	{
-		strjoin[i] = s2[i - first_len];
-		i++;
-	}
-	strjoin[i] = '\0';
-	return (strjoin);
+	if (s1len > 0)
+		while (*s1)
+			*str++ = *s1++;
+	if (s2len > 0)
+		while (*s2)
+			*str++ = *s2++;
+	*str = '\0';
+	return (str - s1len - s2len);
 }

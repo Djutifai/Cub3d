@@ -3,91 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 16:09:25 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/20 17:38:45 by ftassada          #+#    #+#             */
+/*   Updated: 2021/04/22 15:21:02 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	ft_free(char **arr)
+static	size_t	ft_wordcounter(char const *str, char c)
 {
-	int	k;
-
-	k = 0;
-	while (arr[k] != NULL)
-	{
-		free(arr[k]);
-		k++;
-	}
-	free(arr);
-}
-
-static size_t	ft_delimeter_count(char const *s, char c)
-{
-	int		k;
-	int		i;
+	size_t	i;
+	size_t	counter;
+	size_t	flag;
 
 	i = 0;
-	k = 0;
-	while (s[i])
+	counter = 0;
+	flag = 0;
+	while (str[i])
 	{
-		while (s[i] == c)
-			i++;
-		if (s[i] != '\0')
-			k++;
-		while (s[i] != c && s[i] != '\0')
-			i++;
-	}
-	return (k);
-}
-
-static char	**ft_newarr(char const *s, char c, char **arr)
-{
-	unsigned int	i;
-	unsigned int	j;
-	int				k;
-
-	k = 0;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		while (s[i] == c)
-			i++;
-		j = i;
-		while (s[i] != c && s[i] != '\0')
-			i++;
-		if (s[i - 1] != c)
+		if (str[i++] != c)
 		{
-			arr[k] = ft_substr(s, j, i - j);
-			if (arr[k] == NULL)
-				return (NULL);
-			k++;
+			if (!flag)
+			{
+				counter++;
+				flag = 1;
+			}
 		}
+		else
+			flag = 0;
 	}
-	arr[k] = NULL;
-	return (arr);
+	return (counter);
+}
+
+static	char	*ft_strndup(const char *str, size_t n)
+{
+	size_t	strlen;
+	char	*pstr;
+	char	*temppstr;
+
+	strlen = ft_strlen(str);
+	if (n < strlen)
+		strlen = n;
+	pstr = ft_calloc(strlen + 1, sizeof(char));
+	if (!pstr)
+		return (NULL);
+	temppstr = pstr;
+	while (n-- && *str)
+		*temppstr++ = *str++;
+	*temppstr = '\0';
+	return (pstr);
+}
+
+static	void	ft_freeall(char	**strings)
+{
+	size_t	i;
+
+	i = 0;
+	while (strings[i])
+		free(strings[i++]);
+	free (strings);
+}
+
+static	char	**ft_make_strings(char	**strings, char *str, int c)
+{
+	char	**firststring;
+	size_t	counter;
+
+	firststring = strings;
+	while (*str)
+	{
+		counter = 0;
+		while (*(str + counter) && *(str + counter) != c)
+			counter++;
+		if (0 < counter)
+		{
+			*strings = ft_strndup(str, counter);
+			if (!*strings++)
+			{
+				ft_freeall(strings);
+				return (NULL);
+			}
+			str += counter;
+		}
+		else
+			str++;
+	}
+	return (firststring);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char			**arr;
-	int				k;
+	char	**strings;
+	size_t	wordcounter;
 
 	if (!s)
 		return (NULL);
-	k = 0;
-	k = ft_delimeter_count(s, c);
-	arr = (char **)malloc(sizeof(char **) * (k + 1));
-	if (!arr)
+	wordcounter = ft_wordcounter(s, c);
+	strings = (char **)ft_calloc(wordcounter + 1, sizeof(*strings));
+	if (!strings)
 		return (NULL);
-	arr = ft_newarr(s, c, arr);
-	if (arr == NULL)
-	{
-		ft_free(arr);
-		return (NULL);
-	}
-	return (arr);
+	strings = ft_make_strings(strings, (char *)s, c);
+	return (strings);
 }

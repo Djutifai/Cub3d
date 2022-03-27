@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 19:38:44 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/27 17:30:33 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:57:29 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@
 # define SCREEN_HEIGHT 480
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
-# include "../mlx/mlx.h"
+# include "mlx.h"
 # include <stdio.h>
 # include <fcntl.h>
 # include <errno.h>
 # include <math.h>
-# include "libft/libft.h"
-# include "gnl/get_next_line.h"
+# include "libft.h"
+# include "get_next_line.h"
 # include "types.h"
-# include "parser/parser.h"
-# include "cub/cub_cast.h"
+# include "parser.h"
+# include "cub_cast.h"
 
 //Функции общего назначения (utils.c)
 void	ft_error(t_game *game, char *msg, int op);

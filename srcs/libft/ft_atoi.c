@@ -3,45 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/01 10:50:56 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:47 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/16 16:55:32 by ftassada          #+#    #+#             */
+/*   Updated: 2021/04/19 20:35:26 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	atoi_error(void)
+static	int	ft_is_space(char c)
 {
-	write(2, "Error\nft_atoi\n", 6);
-	exit(EXIT_FAILURE);
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r' || c == ' ')
+		return (1);
+	return (0);
+}
+
+static	int	ft_check_overflow(ssize_t res, int digits, int flag)
+{
+	if (digits > 19 || (digits == 19 && res < 0))
+	{
+		if (flag == 1)
+			return (-1);
+		return (0);
+	}
+	return ((int)res * flag);
 }
 
 int	ft_atoi(const char *str)
 {
-	int		neg;
-	ssize_t	num;
 	size_t	i;
+	ssize_t	res;
+	int		flag;
+	int		digits;
 
+	digits = 0;
 	i = 0;
-	neg = 1;
-	num = 0;
-	while (str[i] == ' ')
+	res = 0;
+	flag = 1;
+	while (ft_is_space(str[i]))
 		i++;
 	if (str[i] == '-')
 	{
-		neg = -1;
+		flag *= -1;
 		i++;
-		if (!ft_isdigit(str[i]))
-			atoi_error();
 	}
+	else if (str[i] == '+')
+		i++;
 	while (ft_isdigit(str[i]))
 	{
-		num = num * 10 + neg * (str[i++] - '0');
-		if (num < -2147483648 || num > 2147483647)
-			atoi_error();
+		res = (res * 10) + ((char)str[i] - '0');
+		i++;
+		digits++;
 	}
-	neg = num;
-	return (neg);
+	return (ft_check_overflow(res, digits, flag));
 }

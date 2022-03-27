@@ -3,32 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 16:13:30 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:50 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/18 16:14:56 by ftassada          #+#    #+#             */
+/*   Updated: 2021/04/22 15:45:21 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+static	size_t	ft_getpos(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
-	size_t	j;
+	size_t	pos;
 
-	if (needle[0] == '\0')
-		return ((char *)(haystack));
-	i = 0;
-	while (haystack[i] != '\0' && i < len)
+	pos = 0;
+	while (*s1 == *s2 && *s1 && n--)
 	{
-		j = 0;
-		while (haystack[i + j] == needle[j] && needle[j] != '\0'
-			&& i + j < len && haystack[i] != '\0')
-			j++;
-		if (needle[j] == '\0')
-			return ((char *)(haystack + i));
-		i++;
+		s1++;
+		s2++;
+		pos++;
 	}
-	return (NULL);
+	return (pos);
+}
+
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
+{
+	size_t	curpos;
+	size_t	s2len;
+
+	s2len = ft_strlen(s2);
+	if (0 < s2len)
+	{
+		while (*s1 && n)
+		{
+			curpos = ft_getpos(s1, s2, n--);
+			if (curpos == s2len)
+				return ((char *)s1);
+			if (0 < curpos)
+				s1 += curpos;
+			else
+				s1++;
+		}
+		return (NULL);
+	}
+	else
+		return ((char *)s1);
 }

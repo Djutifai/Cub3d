@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 21:09:51 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:37:04 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:57:51 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "cub.h"
 
 static void	ft_arrtostr(t_game *game, int aln, char ***tmp, char **second)
 {

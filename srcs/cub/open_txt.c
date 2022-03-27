@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   open_txt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:35:54 by hcrakeha          #+#    #+#             */
-/*   Updated: 2022/03/27 17:47:25 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:01:02 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "cub.h"
 
 void	init_txt(t_game *main)
 {
@@ -32,7 +32,7 @@ void	open_txt(t_game *main, t_textures *txt, char *path)
 		ft_error(main, "Some texture is missing or access is denied\n", 0);
 	txt->img_ptr = mlx_xpm_file_to_image(main->raycast->mlx,
 			path, &txt->width, &txt->height);
-	txt->img_value = mlx_get_game_addr(txt->img_ptr, &txt->bpp,
+	txt->img_value = mlx_get_data_addr(txt->img_ptr, &txt->bpp,
 			&txt->line_len, &txt->endian);
 }
 

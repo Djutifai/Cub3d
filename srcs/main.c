@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:56:05 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:47:25 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:28:40 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_parse_map(t_game *game, int fd)
 	int		gnl;
 	int		l;
 
+	gnl = 1;
 	ft_parse_params(game, &gnl, fd);
 	ft_gnl_read(game, &gnl, fd, game->gnln);
 	while (gnl != 0 && (*game->gnln)[0] == '\0')
@@ -39,10 +40,10 @@ static void	ft_parse_map(t_game *game, int fd)
 static void	ft_check_format(char *name)
 {
 	int	i;
-	int	lenBen;
+	int	len_ben;
 
-	lenBen = ft_strlen(name);
-	if (lenBen > 254)
+	len_ben = ft_strlen(name);
+	if (len_ben > 254)
 		ft_error(NULL, "Invalid filename: too many characters", 0);
 	i = 0;
 	while (name[i] != '\0')
@@ -52,8 +53,9 @@ static void	ft_check_format(char *name)
 			ft_error(NULL, "Invalid filename: illegal characters", 0);
 		i++;
 	}
-	if (name[lenBen - 4] != '.' || name[lenBen - 3] != 'c' || name[lenBen - 2] != 'u'
-		|| name[lenBen - 1] != 'b')
+	if (name[len_ben - 4] != '.' || name[len_ben - 3] != 'c' \
+		|| name[len_ben - 2] != 'u'
+		|| name[len_ben - 1] != 'b')
 		ft_error(NULL, "Invalid format: file must have format \".cub\" ", 0);
 }
 
@@ -75,7 +77,7 @@ void	ft_cub(t_game *game)
 	raycast->win = mlx_new_window(raycast->mlx, SCREEN_WIDTH,
 			SCREEN_HEIGHT, "privetyli");
 	pixel->img = mlx_new_image(raycast->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	pixel->addr = mlx_get_game_addr(pixel->img, &pixel->bpp,
+	pixel->addr = mlx_get_data_addr(pixel->img, &pixel->bpp,
 			&pixel->line_len, &pixel->endian);
 	mlx_hook(raycast->win, 2, 0, keypress, raycast->keys);
 	mlx_hook(raycast->win, 3, 0, keyrelease, raycast->keys);

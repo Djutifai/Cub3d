@@ -3,67 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+         #
+#    By: ftassada <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/07 16:15:59 by ftassada          #+#    #+#              #
-#    Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr        #
+#    Created: 2021/04/16 20:09:55 by ftassada          #+#    #+#              #
+#    Updated: 2021/11/05 00:07:15 by ftassada         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= ./
+SRC			=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalnum.c ft_isalpha.c \
+				ft_isascii.c ft_isdigit.c ft_isprint.c ft_memccpy.c ft_memchr.c \
+				ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c \
+				ft_strdup.c ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c \
+				ft_strnstr.c ft_strrchr.c ft_tolower.c ft_toupper.c ft_substr.c \
+				ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
+				ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 
-SRCS	=	${SRC}ft_memset.c		${SRC}ft_bzero.c		${SRC}ft_memcpy.c \
-			${SRC}ft_memccpy.c		${SRC}ft_memmove.c		${SRC}ft_memchr.c \
-			${SRC}ft_memcmp.c		${SRC}ft_strlen.c		${SRC}ft_strlcpy.c \
-			${SRC}ft_strlcat.c		${SRC}ft_strchr.c		${SRC}ft_strrchr.c \
-			${SRC}ft_strnstr.c		${SRC}ft_strncmp.c		${SRC}ft_atoi.c \
-			${SRC}ft_isalpha.c		${SRC}ft_isdigit.c		${SRC}ft_isalnum.c \
-			${SRC}ft_isascii.c		${SRC}ft_isprint.c		${SRC}ft_toupper.c \
-			${SRC}ft_tolower.c		${SRC}ft_calloc.c		${SRC}ft_strdup.c \
-			${SRC}ft_substr.c		${SRC}ft_strjoin.c		${SRC}ft_strtrim.c \
-			${SRC}ft_split.c		${SRC}ft_itoa.c			${SRC}ft_strmapi.c \
-			${SRC}ft_putchar_fd.c	${SRC}ft_putstr_fd.c	${SRC}ft_putnbr_fd.c \
-			${SRC}ft_putendl_fd.c
+SRCD		=	$(patsubst %.c,%.d,${SRC})
 
-B_SRCS	=	${SRC}ft_lstnew.c		${SRC}ft_lstlast.c		${SRC}ft_lstclear.c \
-			${SRC}ft_lstadd_front.c	${SRC}ft_lstadd_back.c	${SRC}ft_lstiter.c \
-			${SRC}ft_lstsize.c		${SRC}ft_lstdelone.c	${SRC}ft_lstmap.c
+OBJ			=	${SRC:.c=.o}
 
-OBJS	= $(SRCS:c=o)
-B_OBJS	= $(B_SRCS:c=o)
+BONUSSRC	=	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+				ft_lstadd_back.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
+				ft_lstmap.c
 
-NAME	= libft.a
+BONUSSRCD	=	$(patsubst %.c,%.d,${BONUSSRC})
 
-HEADER	= libft.h
+BONUSOBJ	=	${BONUSSRC:.c=.o}
 
-RM		= rm -f
+CFLAGS		=	-Wall -Werror -Wextra
 
-CFLAGS	= -Wall -Wextra -Werror
+HEADER		=	libft.h
 
-AR	= ar rcs
+NAME		=	libft.a
 
-all:		${NAME}
+AR			=	ar rc
 
+%.o:			%.c Makefile
+				${CC} ${CFLAGS} -c $< -o $@ -MMD -O2
 
-${NAME}:	${OBJS}
-	@echo "\n"
-	@echo "\033[0;32mCompiling libf...✅"
-	@${AR} ${NAME} ${OBJS}
+$(NAME):		${OBJ}
+				${AR} ${NAME} ${OBJ}
 
-%.o: %.c ${HEADER}
-	@printf "\033[0;33mGenerating libft objects 🔜 %-33.33s\r" $@
-	@gcc ${CFLAGS} -c $< -o $@
+bonus:			${NAME} ${BONUSOBJ}
+				${AR} ${NAME} ${BONUSOBJ}
 
-bonus:
-
-	@make OBJS="${B_OBJS}" all
+all:			${NAME}
 
 clean:
-	@${RM} ${OBJS} ${B_OBJS} ${D_FILES}
+				${RM} ${OBJ} ${SRCD} ${BONUSOBJ} ${BONUSSRCD}
 
-fclean:	clean
-	@${RM} ${NAME}
+fclean:			clean
+				${RM} ${NAME}
 
-re:	fclean all
+re:				fclean	all
 
-.PHONY: all clean fclean re bonus
+.PHONY:			all clean fclean re

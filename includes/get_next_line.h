@@ -3,19 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/26 13:38:23 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/23 01:12:30 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 18:09:57 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include "../libft/libft.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include "libft.h"
 
-int		ft_get_next_line(int fd, char **line);
-int		ft_free_all(int fd, char ***rest, int key);
+int		get_next_line(int fd, char **line);
+char	*ft_strtrunc(char *str, char c);
+char	*ft_strchr(const char *s, int c);
 
 #endif

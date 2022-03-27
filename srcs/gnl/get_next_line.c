@@ -3,93 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/04 13:13:53 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/05/21 20:15:55 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 18:29:17 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_rest_form(char ***rest)
+static	void	ft_free_null(char **strings)
 {
-	int	i;
-
-	*rest = malloc(sizeof(char *) * 1024);
-	if (*rest == NULL)
-		return (-1);
-	i = 0;
-	while (i < 1024)
+	if (strings)
 	{
-		(*rest)[i] = ft_calloc(sizeof(char), 1);
-		if ((*rest)[i] == NULL)
-			return (-1);
-		i++;
+		if (*strings)
+		{
+			free(*strings);
+			*strings = NULL;
+		}
 	}
-	return (0);
 }
 
-int	ft_buf_read(int fd, char **rest)
+static int	ft_free_all(char **strs1, char **strs2, int flag)
 {
-	char	*tmp;
-	char	buf[1001];
-	int		ret;
-
-	ret = read(fd, buf, 1000);
-	buf[ret] = '\0';
-	tmp = ft_substr(*rest, 0, ft_strlen(*rest));
-	free(*rest);
-	*rest = ft_strjoin(tmp, buf);
-	free(tmp);
-	return (ret);
+	ft_free_null(strs1);
+	ft_free_null(strs2);
+	return (flag);
 }
 
-int	ft_rest_work(char **rest, char **line)
+static char	*ft_get_line(char	*cache)
 {
-	int		i;
-	char	*tmp;
-	size_t	len;
+	ssize_t	i;
+	char	*line;
 
 	i = 0;
-	while ((*rest)[i] != '\0' && (*rest)[i] != '\n')
+	if (!cache)
+		return (NULL);
+	while (cache[i] && cache[i] != '\n')
 		i++;
-	len = ft_strlen(*rest) - i + 1;
-	*line = ft_substr(*rest, 0, i);
-	if (*line == NULL)
-		return (-1);
-	if ((*rest)[i] == '\n')
+	line = ft_calloc(sizeof(*cache), i + 1);
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (cache[i] && cache[i] != '\n')
 	{
-		tmp = ft_substr(*rest, i + 1, len);
-		free(*rest);
-		*rest = ft_substr(tmp, 0, len);
-		free(tmp);
-		return (1);
+		line[i] = cache[i];
+		i++;
 	}
-	return (0);
+	return (line);
 }
 
-int	ft_get_next_line(int fd, char **line)
+static int	ft_get_return(char **cache, char **line, char **buf, ssize_t fr)
 {
-	static char	**rest;
-	int			res;
-	int			ret;
+	*line = ft_get_line(*cache);
+	if (!(*line))
+		return (ft_free_all(buf, cache, -1));
+	*cache = ft_strtrunc(*cache, '\n');
+	if (fr == 0)
+		return (ft_free_all(buf, cache, 0));
+	return (ft_free_all(buf, NULL, 1));
+}
 
-	if (read(fd, 0, 0) == -1 || line == NULL)
-		return (ft_free_all(fd, &rest, -1));
-	if (rest == NULL)
-		res = ft_rest_form(&rest);
-	res = ft_rest_work(&(rest[fd]), line);
-	ret = 1000;
-	if (res == -1)
-		return (ft_free_all(fd, &rest, -1));
-	while (res == 0 && ret == 1000)
+int	get_next_line(int fd, char **line)
+{
+	static char	*cache;
+	char		*buf;
+	ssize_t		fr;
+
+	if (!line)
+		return (-1);
+	fr = 1;
+	buf = ft_calloc(sizeof(*buf), 7);
+	if (!buf)
+		return (ft_free_all(NULL, &cache, -1));
+	while (fr && !ft_strchr(cache, '\n'))
 	{
-		ret = ft_buf_read(fd, &(rest[fd]));
-		free(*line);
-		res = ft_rest_work(&(rest[fd]), line);
+		fr = read(fd, buf, 5);
+		if (fr == -1)
+			return (ft_free_all(&buf, &cache, -1));
+		buf[fr] = '\0';
+		cache = ft_strjoin(cache, buf);
+		if (!cache)
+			return (ft_free_all(&buf, &cache, -1));
 	}
-	if (res <= 0)
-		return (ft_free_all(fd, &rest, res));
-	return (res);
+	return (ft_get_return(&cache, line, &buf, fr));
 }

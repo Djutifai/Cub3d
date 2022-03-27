@@ -3,26 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/25 20:50:57 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:50 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/21 12:54:12 by ftassada          #+#    #+#             */
+/*   Updated: 2021/04/21 13:12:25 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static	void	ft_putnbr(int n, int fd)
+{
+	char	divdigit;
+
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		if (n == -2147483648)
+		{
+			write(fd, "2", 1);
+			ft_putnbr(147483648, fd);
+		}
+		n *= (-1);
+	}
+	if (n >= 10)
+	{
+		divdigit = (n % 10) + 48;
+		n = n / 10;
+		ft_putnbr(n, fd);
+		write(fd, &divdigit, 1);
+	}
+	else if (n >= 0 && n <= 9)
+	{
+		divdigit = n + 48;
+		write(fd, &divdigit, 1);
+	}
+}
+
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (n >= 0)
-		n *= -1;
-	else
-		ft_putchar_fd('-', fd);
-	if (n < -9)
-	{
-		ft_putnbr_fd((n / 10) * (-1), fd);
-		ft_putnbr_fd((n % 10) * (-1), fd);
-	}
-	else
-		ft_putchar_fd((n * (-1) + '0'), fd);
+	ft_putnbr(n, fd);
 }

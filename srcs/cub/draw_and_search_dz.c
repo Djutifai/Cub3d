@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_and_search_dz.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 17:35:28 by hcrakeha          #+#    #+#             */
-/*   Updated: 2022/03/27 17:47:25 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:57:51 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "cub.h"
 
 void	draw_line(t_raycast *raycast, t_textures *txt, int y, int x)
 {

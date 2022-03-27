@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 16:11:35 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
+/*   Created: 2021/04/16 13:04:38 by ftassada          #+#    #+#             */
+/*   Updated: 2021/04/20 20:04:21 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,24 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t	src_len;
+	size_t	i;
 
-	if (!src || !dst)
+	i = 0;
+	if (!src)
 		return (0);
-	src_len = ft_strlen(src);
-	if (dstsize > 0)
+	if (!dst)
+		return (ft_strlen(src));
+	while (i < dstsize && src[i])
 	{
-		if (src_len < dstsize)
-		{
-			ft_memcpy(dst, src, src_len);
-			dst[src_len] = '\0';
-		}
-		else if (dstsize != 0)
-		{
-			ft_memcpy(dst, src, dstsize - 1);
-			dst[dstsize - 1] = '\0';
-		}
+		dst[i] = src[i];
+		i++;
 	}
-	return (src_len);
+	if (dstsize != 0)
+	{
+		if (dstsize == i)
+			dst[i - 1] = '\0';
+		else
+			dst[i] = '\0';
+	}
+	return (ft_strlen(src));
 }

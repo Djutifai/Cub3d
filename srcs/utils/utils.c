@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 19:09:19 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:35:48 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:27:44 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "cub.h"
 
 void	ft_error_fd(t_game *game, char *msg, int op, int fd)
 {
@@ -43,7 +43,7 @@ int	ft_open(char *flnm)
 void	ft_gnl_read(t_game *game, int *gnl, int fd, char **ln)
 {
 	free(*ln);
-	*gnl = ft_get_next_line(fd, ln);
+	*gnl = get_next_line(fd, ln);
 	if (*gnl == -1)
 	{
 		if (close(fd) == -1)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ftassada <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:29:53 by ftassada          #+#    #+#             */
-/*   Updated: 2022/03/27 17:37:04 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 18:26:10 by ftassada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub.h"
+#include "cub.h"
 
 static int	ft_parse_texture(t_game *game, char **tmp)
 {
