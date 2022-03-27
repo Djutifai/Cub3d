@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_and_search_dz.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:04:12 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/17 19:41:04 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	seach_draw_and_txt(t_raycast *raycast)
 		raycast->draw_end = SCREEN_HEIGHT - 1;
 }
 
-void	choice_txt(t_raycast *raycast, t_data *main, int x)
+void	choice_txt(t_raycast *raycast, t_game *main, int x)
 {
 	t_textures	*txt;
 

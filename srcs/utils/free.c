@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 18:43:20 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/17 19:25:01 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**ft_free_arr(char **arr, int ln)
 	return (NULL);
 }
 
-void	ft_free_data(t_data *data)
+void	ft_free_data(t_game *data)
 {
 	int	i;
 
@@ -57,12 +57,12 @@ void	ft_free_data(t_data *data)
 			free(data->gnln);
 		}
 		free_all_raycast(data);
-		ft_bzero(data, sizeof(t_data));
+		ft_bzero(data, sizeof(t_game));
 		free(data);
 	}
 }
 
-void	ft_context_free_err(t_data *data, char ***tmp, int aln, char *msg)
+void	ft_context_free_err(t_game *data, char ***tmp, int aln, char *msg)
 {
 	ft_free_arr(*tmp, aln);
 	free(tmp);

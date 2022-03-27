@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_rgb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scoach <scoach@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 21:09:51 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/08 19:39:29 by scoach           ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static void	ft_arrtostr(t_data *data, int aln, char ***tmp, char **second)
+static void	ft_arrtostr(t_game *data, int aln, char ***tmp, char **second)
 {
 	int		i;
 	char	*now;
@@ -35,7 +35,7 @@ static void	ft_arrtostr(t_data *data, int aln, char ***tmp, char **second)
 	}
 }
 
-static void	ft_fill_tmp_rgb(t_data *data, char ***tmp, char **frst, char **sec)
+static void	ft_fill_tmp_rgb(t_game *data, char ***tmp, char **frst, char **sec)
 {
 	(*tmp)[0] = ft_strdup(*frst);
 	free(*frst);
@@ -47,7 +47,7 @@ static void	ft_fill_tmp_rgb(t_data *data, char ***tmp, char **frst, char **sec)
 		ft_context_free_err(data, tmp, 2, "ft_conc_tmp malloc");
 }
 
-static void	ft_conc_tmp(t_data *data, char ***tmp, int aln)
+static void	ft_conc_tmp(t_game *data, char ***tmp, int aln)
 {
 	char	*first;
 	char	*second;
@@ -70,7 +70,7 @@ static void	ft_conc_tmp(t_data *data, char ***tmp, int aln)
 	ft_fill_tmp_rgb(data, tmp, &first, &second);
 }
 
-void	ft_parse_rgb(t_data *data, char ***tmp, int *op, int i)
+void	ft_parse_rgb(t_game *data, char ***tmp, int *op, int i)
 {
 	char	**rgb;
 	int		num[3];

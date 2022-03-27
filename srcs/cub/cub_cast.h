@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_cast.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:04:32 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/17 19:27:37 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 # define CUB_CAST_H
 
 // pognali_epta.c
-void	init_st_rc(t_data *main, t_raycast *raycast);
-void	calc(t_raycast *raycast, t_data *main);
-int		render(t_data *main);
+void	init_st_rc(t_game *main, t_raycast *raycast);
+void	calc(t_raycast *raycast, t_game *main);
+int		render(t_game *main);
 
 // init_struct.c
-void	init_st_rc2(t_data *main, t_raycast *raycast);
-void	init_st_rc(t_data *main, t_raycast *raycast);
+void	init_st_rc2(t_game *main, t_raycast *raycast);
+void	init_st_rc(t_game *main, t_raycast *raycast);
 void	init_key(t_raycast *raycast);
 
 // open_txt.c
-void	init_txt(t_data *main);
-void	open_txt(t_data *main, t_textures *txt, char *path);
-void	load_txt(t_data *main);
+void	init_txt(t_game *main);
+void	open_txt(t_game *main, t_textures *txt, char *path);
+void	load_txt(t_game *main);
 
 //keyhook.c
 int		free_all(void);
@@ -47,10 +47,10 @@ void	rotate_r(t_raycast *raycast);
 //draw_and_search_dz.c
 void	draw_line(t_raycast *raycast, t_textures *txt, int y, int x);
 void	seach_draw_and_txt(t_raycast *raycast);
-void	choice_txt(t_raycast *raycast, t_data *main, int x);
+void	choice_txt(t_raycast *raycast, t_game *main, int x);
 
 //free.c
-void	free_all_raycast(t_data *main);
-void	free_txtr(t_data *main);
+void	free_all_raycast(t_game *main);
+void	free_txtr(t_game *main);
 
 #endif

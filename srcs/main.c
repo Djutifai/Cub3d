@@ -6,13 +6,13 @@
 /*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 17:56:05 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/19 00:16:40 by hcrakeha         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-static void	ft_parse_map(t_data *data, int fd)
+static void	ft_parse_map(t_game *data, int fd)
 {
 	int		gnl;
 	int		l;
@@ -57,7 +57,7 @@ static void	ft_check_format(char *name)
 		ft_error(NULL, "Invalid format: file must have format \".cub\" ", 0);
 }
 
-void	ft_cub(t_data *data)
+void	ft_cub(t_game *data)
 {
 	t_pixel		*pixel;
 	t_raycast	*raycast;
@@ -75,7 +75,7 @@ void	ft_cub(t_data *data)
 	raycast->win = mlx_new_window(raycast->mlx, SCREEN_WIDTH,
 			SCREEN_HEIGHT, "privetyli");
 	pixel->img = mlx_new_image(raycast->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	pixel->addr = mlx_get_data_addr(pixel->img, &pixel->bpp,
+	pixel->addr = mlx_get_game_addr(pixel->img, &pixel->bpp,
 			&pixel->line_len, &pixel->endian);
 	mlx_hook(raycast->win, 2, 0, keypress, raycast->keys);
 	mlx_hook(raycast->win, 3, 0, keyrelease, raycast->keys);
@@ -86,7 +86,7 @@ void	ft_cub(t_data *data)
 
 int	main(int argc, char *argv[])
 {
-	t_data		*data;
+	t_game		*data;
 	int			fd;
 
 	if (argc < 2)
@@ -95,10 +95,10 @@ int	main(int argc, char *argv[])
 		ft_error(NULL, "Too many arguments", 0);
 	ft_check_format(argv[1]);
 	fd = ft_open(argv[1]);
-	data = (t_data *)malloc(sizeof(t_data));
+	data = (t_game *)malloc(sizeof(t_game));
 	if (data == NULL)
 		ft_error(data, "Data initialization", 0);
-	ft_bzero(data, sizeof(t_data));
+	ft_bzero(data, sizeof(t_game));
 	data->map = ft_calloc(1, sizeof(char *));
 	if (data->map == NULL)
 		ft_error(data, "ft_calloc for map", 0);

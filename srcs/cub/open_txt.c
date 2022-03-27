@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_txt.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 19:07:15 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/17 18:42:22 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:29:47 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	init_txt(t_data *main)
+void	init_txt(t_game *main)
 {
 	main->north = malloc(sizeof(t_textures));
 	main->south = malloc(sizeof(t_textures));
@@ -26,17 +26,17 @@ void	init_txt(t_data *main)
 	load_txt(main);
 }
 
-void	open_txt(t_data *main, t_textures *txt, char *path)
+void	open_txt(t_game *main, t_textures *txt, char *path)
 {
 	if (access(path, O_RDONLY) == -1)
 		ft_error(main, "Some texture is missing or access is denied\n", 0);
 	txt->img_ptr = mlx_xpm_file_to_image(main->raycast->mlx,
 			path, &txt->width, &txt->height);
-	txt->img_data = mlx_get_data_addr(txt->img_ptr, &txt->bpp,
+	txt->img_value = mlx_get_game_addr(txt->img_ptr, &txt->bpp,
 			&txt->line_len, &txt->endian);
 }
 
-void	load_txt(t_data *main)
+void	load_txt(t_game *main)
 {
 	open_txt(main, main->north, main->nswe[0]);
 	open_txt(main, main->south, main->nswe[1]);

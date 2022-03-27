@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scoach <scoach@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 16:48:31 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/18 16:48:56 by scoach           ###   ########.fr       */
+/*   Updated: 2022/03/27 17:29:47 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ typedef struct s_pixel
 
 typedef struct s_textures
 {
-	void	*img_data;
+	void	*img_value;
 	char	*img_ptr;
-	int		*data;
 	int		line_len;
 	int		endian;
 	int		width;
@@ -78,14 +77,14 @@ typedef struct s_raycast
 	int				line_height;
 	int				side;
 	int				hit;
-	struct s_data	*main;
+	struct s_game	*main;
 	t_pixel			*pixel;
 	t_textures		*txt_pxl;
 	t_keys			*keys;
 	struct s_txtr	*txt;
 }			t_raycast;
 
-typedef struct s_data
+typedef struct s_game
 {
 	int			width;
 	int			high;
@@ -101,6 +100,6 @@ typedef struct s_data
 	t_textures	*west;
 	t_textures	*east;
 	t_raycast	*raycast;
-}				t_data;
+}				t_game;
 
 #endif

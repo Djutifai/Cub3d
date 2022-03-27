@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 19:06:28 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/17 19:41:04 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	init_st_rc2(t_data *main, t_raycast *raycast)
+void	init_st_rc2(t_game *main, t_raycast *raycast)
 {
 	if (main->playdir == 'N')
 	{
@@ -45,7 +45,7 @@ void	init_key(t_raycast *raycast)
 	raycast->keys = keys;
 }
 
-void	init_st_rc(t_data *main, t_raycast *raycast)
+void	init_st_rc(t_game *main, t_raycast *raycast)
 {
 	raycast->pos_x = (float)main->player_base[0] + 0.5;
 	raycast->pos_y = (float)main->player_base[1] + 0.5;

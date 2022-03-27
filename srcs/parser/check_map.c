@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:11:41 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/16 01:25:47 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static void	ft_to_width(t_data *data, int y, int ln, int tmpln)
+static void	ft_to_width(t_game *data, int y, int ln, int tmpln)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -38,7 +38,7 @@ static void	ft_to_width(t_data *data, int y, int ln, int tmpln)
 	}
 }
 
-static void	ft_check_core(t_data *data, char **m, int y, int x)
+static void	ft_check_core(t_game *data, char **m, int y, int x)
 {
 	while (m[y + 1] != NULL)
 	{
@@ -66,7 +66,7 @@ static void	ft_check_core(t_data *data, char **m, int y, int x)
 	}
 }
 
-static void	ft_check_rectangularity_frame(t_data *data, char **map, int i)
+static void	ft_check_rectangularity_frame(t_game *data, char **map, int i)
 {
 	int	j;
 
@@ -89,7 +89,7 @@ static void	ft_check_rectangularity_frame(t_data *data, char **map, int i)
 	}
 }
 
-static int	ft_check_strangers_fullness(t_data *data, char *m, int j)
+static int	ft_check_strangers_fullness(t_game *data, char *m, int j)
 {
 	int	i;
 	int	p;
@@ -116,7 +116,7 @@ static int	ft_check_strangers_fullness(t_data *data, char *m, int j)
 	return (p);
 }
 
-void	ft_check_map(t_data *data)
+void	ft_check_map(t_game *data)
 {
 	int	i;
 	int	p;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scoach <scoach@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:29:53 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/08 19:31:49 by scoach           ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static int	ft_parse_texture(t_data *data, char **tmp)
+static int	ft_parse_texture(t_game *data, char **tmp)
 {
 	int		i;
 
@@ -34,7 +34,7 @@ static int	ft_parse_texture(t_data *data, char **tmp)
 	return (0);
 }
 
-static int	ft_data_write(t_data *data, char ***tmp, int strln)
+static int	ft_game_write(t_game *data, char ***tmp, int strln)
 {
 	if (strln == 2)
 		return (ft_parse_texture(data, *tmp));
@@ -47,7 +47,7 @@ static int	ft_data_write(t_data *data, char ***tmp, int strln)
 	return (0);
 }
 
-static void	ft_check_write_params(t_data *data, char **line, int *check)
+static void	ft_check_write_params(t_game *data, char **line, int *check)
 {
 	char	***tmp;
 	int		sln;
@@ -62,14 +62,14 @@ static void	ft_check_write_params(t_data *data, char **line, int *check)
 		ft_context_free_err(data, tmp, aln, "ft_split malloc");
 	if (aln > 0)
 		sln = ft_strlen((*tmp)[0]);
-	if (aln < 2 || sln > 2 || sln < 1 || ft_data_write(data, tmp, sln))
+	if (aln < 2 || sln > 2 || sln < 1 || ft_game_write(data, tmp, sln))
 		ft_context_free_err(data, tmp, aln, "Wrong map parameters");
 	ft_free_arr(*tmp, 2);
 	free(tmp);
 	(*check)++;
 }
 
-void	ft_parse_params(t_data *data, int *gnl, int fd)
+void	ft_parse_params(t_game *data, int *gnl, int fd)
 {
 	int		i;
 	int		check;

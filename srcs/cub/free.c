@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 18:25:25 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/17 18:43:14 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-void	free_all_raycast(t_data *main)
+void	free_all_raycast(t_game *main)
 {
 	if (main->raycast->keys)
 		free(main->raycast->keys);
@@ -25,7 +25,7 @@ void	free_all_raycast(t_data *main)
 		free(main->raycast);
 }
 
-void	free_txtr(t_data *main)
+void	free_txtr(t_game *main)
 {
 	if (main->west)
 		free(main->west);

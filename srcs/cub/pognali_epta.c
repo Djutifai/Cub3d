@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pognali_epta.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:04:00 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/17 19:41:04 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	dir_and_dist(t_raycast *raycast, int x)
 	raycast->map_y = (int)raycast->pos_y;
 }
 
-void	search_hit(t_raycast *raycast, t_data *main)
+void	search_hit(t_raycast *raycast, t_game *main)
 {
 	raycast->hit = 0;
 	while (!raycast->hit)
@@ -73,7 +73,7 @@ void	search_hit(t_raycast *raycast, t_data *main)
 	}
 }
 
-void	calc(t_raycast *raycast, t_data *main)
+void	calc(t_raycast *raycast, t_game *main)
 {
 	int	x;
 
@@ -89,7 +89,7 @@ void	calc(t_raycast *raycast, t_data *main)
 	}
 }
 
-int	render(t_data *main)
+int	render(t_game *main)
 {
 	key_event(main->raycast, main->raycast->keys);
 	calc(main->raycast, main);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scoach <scoach@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 19:38:44 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/18 16:49:20 by scoach           ###   ########.fr       */
+/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@
 # include "cub/cub_cast.h"
 
 //Функции общего назначения (utils.c)
-void	ft_error(t_data *data, char *msg, int op);
+void	ft_error(t_game *data, char *msg, int op);
 int		ft_open(char *flnm);
-void	ft_gnl_read(t_data *data, int *gnl, int fd, char **ln);
+void	ft_gnl_read(t_game *data, int *gnl, int fd, char **ln);
 void	pixel_put(t_pixel *pixel, int x, int y, int color);
 int		get_pixel_color(t_textures *txt, int x, int y);
 
@@ -50,11 +50,11 @@ char	**ft_arrdup(char **arr);
 char	**ft_arrjoin(char **arr1, char **arr2);
 
 //Очистка памяти (free.c)
-void	ft_context_free_err(t_data *data, char ***tmp, int aln, char *msg);
-void	ft_free_data(t_data *data);
+void	ft_context_free_err(t_game *data, char ***tmp, int aln, char *msg);
+void	ft_free_data(t_game *data);
 char	**ft_free_arr(char **arr, int ln);
 
 // cub
-int		dolznoBitVmain(t_data *main, t_raycast *raycast);
+int		dolznoBitVmain(t_game *main, t_raycast *raycast);
 
 #endif

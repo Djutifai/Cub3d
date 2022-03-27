@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chasimir <chasimir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 20:17:39 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/16 20:17:40 by chasimir         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:29:47 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_pixel_color(t_textures *txt, int x, int y)
 {
 	int	color;
 
-	color = *(unsigned int *)(txt->img_data
+	color = *(unsigned int *)(txt->img_value
 			+ (y * txt->line_len + x * (txt->bpp / 8)));
 	return (color);
 }
