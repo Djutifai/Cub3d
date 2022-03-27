@@ -5,9 +5,9 @@ CUB = \
 	srcs/cub/free.c\
 	srcs/cub/init_struct.c\
 	srcs/cub/keyhook.c\
-	srcs/cub/move.c\
+	srcs/cub/movements.c\
 	srcs/cub/open_txt.c\
-	srcs/cub/pognali_epta.c\
+	srcs/cub/raycasting.c\
 	srcs/cub/rotate.c\
 
 GNL = \

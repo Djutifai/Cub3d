@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 18:43:20 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
+/*   Created: 2022/02/22 18:43:20 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 17:35:48 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,37 @@ char	**ft_free_arr(char **arr, int ln)
 	return (NULL);
 }
 
-void	ft_free_data(t_game *data)
+void	ft_free_game(t_game *game)
 {
 	int	i;
 
-	if (data != NULL)
+	if (game != NULL)
 	{
-		if (data->map != NULL)
-			ft_free_arr(data->map, ft_arrlen(data->map));
+		if (game->map != NULL)
+			ft_free_arr(game->map, ft_arrlen(game->map));
 		i = 0;
 		while (i < 4)
 		{
-			if (data->nswe[i] != NULL)
-				free(data->nswe[i]);
+			if (game->nswe[i] != NULL)
+				free(game->nswe[i]);
 			i++;
 		}
-		ft_bzero(data->nswe, sizeof(char *) * 4);
-		if (data->gnln != NULL)
+		ft_bzero(game->nswe, sizeof(char *) * 4);
+		if (game->gnln != NULL)
 		{
-			if (*data->gnln != NULL)
-				free(*data->gnln);
-			free(data->gnln);
+			if (*game->gnln != NULL)
+				free(*game->gnln);
+			free(game->gnln);
 		}
-		free_all_raycast(data);
-		ft_bzero(data, sizeof(t_game));
-		free(data);
+		free_all_raycast(game);
+		ft_bzero(game, sizeof(t_game));
+		free(game);
 	}
 }
 
-void	ft_context_free_err(t_game *data, char ***tmp, int aln, char *msg)
+void	ft_context_free_err(t_game *game, char ***tmp, int aln, char *msg)
 {
 	ft_free_arr(*tmp, aln);
 	free(tmp);
-	ft_error(data, msg, 0);
+	ft_error(game, msg, 0);
 }

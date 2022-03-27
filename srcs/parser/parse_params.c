@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 17:29:53 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
+/*   Created: 2022/02/21 17:29:53 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 17:37:04 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static int	ft_parse_texture(t_game *data, char **tmp)
+static int	ft_parse_texture(t_game *game, char **tmp)
 {
 	int		i;
 
@@ -25,29 +25,29 @@ static int	ft_parse_texture(t_game *data, char **tmp)
 		i = 2;
 	if (tmp[0][0] == 'E' && tmp[0][1] == 'A')
 		i = 3;
-	if (i >= 0 && data->nswe[i] == NULL)
-		data->nswe[i] = ft_strdup(tmp[1]);
+	if (i >= 0 && game->nswe[i] == NULL)
+		game->nswe[i] = ft_strdup(tmp[1]);
 	else
 		return (1);
-	if (data->nswe[i] == NULL)
+	if (game->nswe[i] == NULL)
 		return (1);
 	return (0);
 }
 
-static int	ft_game_write(t_game *data, char ***tmp, int strln)
+static int	ft_game_write(t_game *game, char ***tmp, int strln)
 {
 	if (strln == 2)
-		return (ft_parse_texture(data, *tmp));
-	if ((*tmp)[0][0] == 'F' && data->floor == -1)
-		ft_parse_rgb(data, tmp, &(data->floor), 0);
-	else if ((*tmp)[0][0] == 'C' && data->ceilling == -1)
-		ft_parse_rgb(data, tmp, &(data->ceilling), 0);
+		return (ft_parse_texture(game, *tmp));
+	if ((*tmp)[0][0] == 'F' && game->floor == -1)
+		ft_parse_rgb(game, tmp, &(game->floor), 0);
+	else if ((*tmp)[0][0] == 'C' && game->ceilling == -1)
+		ft_parse_rgb(game, tmp, &(game->ceilling), 0);
 	else
 		return (1);
 	return (0);
 }
 
-static void	ft_check_write_params(t_game *data, char **line, int *check)
+static void	ft_check_write_params(t_game *game, char **line, int *check)
 {
 	char	***tmp;
 	int		sln;
@@ -55,43 +55,43 @@ static void	ft_check_write_params(t_game *data, char **line, int *check)
 
 	tmp = malloc(sizeof(char **));
 	if (tmp == NULL)
-		ft_error(data, "ft_check_write_params malloc", 0);
+		ft_error(game, "ft_check_write_params malloc", 0);
 	*tmp = ft_split(*line, ' ');
 	aln = ft_arrlen(*tmp);
 	if (*tmp == NULL)
-		ft_context_free_err(data, tmp, aln, "ft_split malloc");
+		ft_context_free_err(game, tmp, aln, "ft_split malloc");
 	if (aln > 0)
 		sln = ft_strlen((*tmp)[0]);
-	if (aln < 2 || sln > 2 || sln < 1 || ft_game_write(data, tmp, sln))
-		ft_context_free_err(data, tmp, aln, "Wrong map parameters");
+	if (aln < 2 || sln > 2 || sln < 1 || ft_game_write(game, tmp, sln))
+		ft_context_free_err(game, tmp, aln, "Wrong map parameters");
 	ft_free_arr(*tmp, 2);
 	free(tmp);
 	(*check)++;
 }
 
-void	ft_parse_params(t_game *data, int *gnl, int fd)
+void	ft_parse_params(t_game *game, int *gnl, int fd)
 {
 	int		i;
 	int		check;
 
-	data->gnln = ft_calloc(1, sizeof (char *));
-	if (data->gnln == NULL)
-		ft_error(data, "ft_parse_params malloc", 0);
-	*data->gnln = ft_calloc(1, 1);
-	if (*data->gnln == NULL)
-		ft_error(data, "ft_parse_params malloc", 0);
+	game->gnln = ft_calloc(1, sizeof (char *));
+	if (game->gnln == NULL)
+		ft_error(game, "ft_parse_params malloc", 0);
+	*game->gnln = ft_calloc(1, 1);
+	if (*game->gnln == NULL)
+		ft_error(game, "ft_parse_params malloc", 0);
 	i = 0;
 	check = 0;
-	data->floor = -1;
-	data->ceilling = -1;
+	game->floor = -1;
+	game->ceilling = -1;
 	while (*gnl != 0 && check != 6)
 	{
-		ft_gnl_read(data, gnl, fd, data->gnln);
-		if ((*data->gnln) != NULL && (*data->gnln)[0] != '\n'
-			&& (*data->gnln)[0] != '\0')
-			ft_check_write_params(data, data->gnln, &check);
+		ft_gnl_read(game, gnl, fd, game->gnln);
+		if ((*game->gnln) != NULL && (*game->gnln)[0] != '\n'
+			&& (*game->gnln)[0] != '\0')
+			ft_check_write_params(game, game->gnln, &check);
 		i++;
 	}
 	if (check != 6)
-		ft_error(data, "Not enough argumetns", 0);
+		ft_error(game, "Not enough argumetns", 0);
 }

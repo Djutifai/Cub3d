@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pognali_epta.c                                     :+:      :+:    :+:   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/16 20:04:00 by chasimir          #+#    #+#             */
-/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
+/*   Created: 2022/03/27 17:36:00 by hcrakeha          #+#    #+#             */
+/*   Updated: 2022/03/27 17:47:25 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	dir_and_dist(t_raycast *raycast, int x)
 	raycast->map_y = (int)raycast->pos_y;
 }
 
-void	search_hit(t_raycast *raycast, t_game *main)
+void	search_hit(t_raycast *raycast, t_game *game)
 {
 	raycast->hit = 0;
 	while (!raycast->hit)
@@ -68,12 +68,12 @@ void	search_hit(t_raycast *raycast, t_game *main)
 			raycast->map_y += raycast->step_y;
 			raycast->side = 1;
 		}
-		if (main->map[raycast->map_y][raycast->map_x] == '1')
+		if (game->map[raycast->map_y][raycast->map_x] == '1')
 			raycast->hit = 1;
 	}
 }
 
-void	calc(t_raycast *raycast, t_game *main)
+void	calc_raycast(t_raycast *raycast, t_game *game)
 {
 	int	x;
 
@@ -82,18 +82,18 @@ void	calc(t_raycast *raycast, t_game *main)
 	{
 		dir_and_dist(raycast, x);
 		calc_step_and_sidedist(raycast);
-		search_hit(raycast, main);
+		search_hit(raycast, game);
 		seach_draw_and_txt(raycast);
-		choice_txt(raycast, main, x);
+		choice_txt(raycast, game, x);
 		x++;
 	}
 }
 
-int	render(t_game *main)
+int	render(t_game *game)
 {
-	key_event(main->raycast, main->raycast->keys);
-	calc(main->raycast, main);
-	mlx_put_image_to_window(main->raycast->mlx, main->raycast->win,
-		main->raycast->pixel->img, 0, 0);
+	key_event(game->raycast, game->raycast->keys);
+	calc_raycast(game->raycast, game);
+	mlx_put_image_to_window(game->raycast->mlx, game->raycast->win,
+		game->raycast->pixel->img, 0, 0);
 	return (0);
 }

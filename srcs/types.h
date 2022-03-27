@@ -5,22 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 16:48:31 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/27 17:29:47 by hcrakeha         ###   ########.fr       */
+/*   Created: 2022/02/21 16:48:31 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 17:47:25 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPES_H
 # define TYPES_H
 
-typedef struct s_pixel
+typedef struct s_keys
 {
-	void			*img;
-	char			*addr;
-	int				bpp;
-	int				line_len;
-	int				endian;
-}				t_pixel;
+	int	key_a;
+	int	key_d;
+	int	key_w;
+	int	key_s;
+	int	key_la;
+	int	key_ra;
+}			t_keys;
 
 typedef struct s_textures
 {
@@ -33,15 +34,14 @@ typedef struct s_textures
 	int		bpp;
 }	t_textures;
 
-typedef struct s_keys
+typedef struct s_pixel
 {
-	int	key_a;
-	int	key_d;
-	int	key_w;
-	int	key_s;
-	int	key_la;
-	int	key_ra;
-}			t_keys;
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				line_len;
+	int				endian;
+}				t_pixel;
 
 typedef struct s_raycast
 {

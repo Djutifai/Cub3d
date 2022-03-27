@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mariakorcagina <mariakorcagina@student.    +#+  +:+       +#+         #
+#    By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/07 16:15:59 by scoach            #+#    #+#              #
-#    Updated: 2022/03/14 00:06:09 by mariakorcag      ###   ########.fr        #
+#    Created: 2021/05/07 16:15:59 by ftassada          #+#    #+#              #
+#    Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,8 +42,8 @@ CFLAGS	= -Wall -Wextra -Werror
 
 AR	= ar rcs
 
-all:		${NAME}	
-	
+all:		${NAME}
+
 
 ${NAME}:	${OBJS}
 	@echo "\n"

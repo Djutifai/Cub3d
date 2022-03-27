@@ -5,60 +5,60 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/21 17:11:41 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/27 17:21:19 by hcrakeha         ###   ########.fr       */
+/*   Created: 2022/02/21 17:11:41 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 17:37:04 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
 
-static void	ft_to_width(t_game *data, int y, int ln, int tmpln)
+static void	ft_to_width(t_game *game, int y, int ln, int tmpln)
 {
 	char	*tmp;
 	char	*tmp2;
 
-	if (data->map[y][ln - 1] == '\n')
+	if (game->map[y][ln - 1] == '\n')
 		ln--;
-	if (data->map[y][ln] == '\n')
-		data->map[y][ln] = '\0';
-	if (ln < data->width)
+	if (game->map[y][ln] == '\n')
+		game->map[y][ln] = '\0';
+	if (ln < game->width)
 	{
-		tmpln = data->width - ln;
-		tmp2 = ft_strdup(data->map[y]);
+		tmpln = game->width - ln;
+		tmp2 = ft_strdup(game->map[y]);
 		if (tmp2 == NULL)
-			ft_error(data, "ft_to_width malloc", 0);
+			ft_error(game, "ft_to_width malloc", 0);
 		tmp = ft_calloc(tmpln + 1, sizeof(char));
 		if (tmp == NULL)
-			ft_error(data, "ft_to_width malloc", 0);
+			ft_error(game, "ft_to_width malloc", 0);
 		tmp = ft_memset(tmp, ' ', tmpln);
-		free(data->map[y]);
-		data->map[y] = ft_strjoin(tmp2, tmp);
+		free(game->map[y]);
+		game->map[y] = ft_strjoin(tmp2, tmp);
 		free(tmp);
 		free(tmp2);
 	}
 }
 
-static void	ft_check_core(t_game *data, char **m, int y, int x)
+static void	ft_check_core(t_game *game, char **m, int y, int x)
 {
 	while (m[y + 1] != NULL)
 	{
-		if (data->map[y] == NULL)
+		if (game->map[y] == NULL)
 		{
-			while (data->map[y + 1] != NULL)
+			while (game->map[y + 1] != NULL)
 			{
-				free(data->map[y + 1]);
+				free(game->map[y + 1]);
 				y++;
 			}
-			ft_error(data, "malloc error ft_check_core", 0);
+			ft_error(game, "malloc error ft_check_core", 0);
 		}
 		if ((m[y][0] != '1' && m[y][0] != ' ')
-			|| (m[y][data->width - 1] != '1' && m[y][data->width - 1] != ' '))
-			ft_error(data, "Frame is not full!", 0);
+			|| (m[y][game->width - 1] != '1' && m[y][game->width - 1] != ' '))
+			ft_error(game, "Frame is not full!", 0);
 		while (m[y][x + 1] != '\0')
 		{
 			if ((m[y - 1][x] == ' ' || m[y + 1][x] == ' ' || m[y][x - 1] == ' '
 				|| m[y][x + 1] == ' ') && m[y][x] != '1' && m[y][x] != ' ')
-				ft_error(data, "Frame is not full!!", 0);
+				ft_error(game, "Frame is not full!!", 0);
 			x++;
 		}
 		x = 0;
@@ -66,7 +66,7 @@ static void	ft_check_core(t_game *data, char **m, int y, int x)
 	}
 }
 
-static void	ft_check_rectangularity_frame(t_game *data, char **map, int i)
+static void	ft_check_rectangularity_frame(t_game *game, char **map, int i)
 {
 	int	j;
 
@@ -74,22 +74,22 @@ static void	ft_check_rectangularity_frame(t_game *data, char **map, int i)
 	while (map[0][j] != '\0')
 	{
 		if (map[0][j] != '1' && map[0][j] != ' ')
-			ft_error(data, "Frame is not full!!!", 0);
+			ft_error(game, "Frame is not full!!!", 0);
 		j++;
 	}
-	if (data->map[1] != NULL)
+	if (game->map[1] != NULL)
 	{
-		ft_check_core(data, map, 1, 0);
-		while (map[data->high - 1][i] != '\0')
+		ft_check_core(game, map, 1, 0);
+		while (map[game->high - 1][i] != '\0')
 		{
-			if (map[data->high - 1][i] != '1' && map[data->high - 1][i] != ' ')
-				ft_error(data, "Frame is not full!!!!!", 0);
+			if (map[game->high - 1][i] != '1' && map[game->high - 1][i] != ' ')
+				ft_error(game, "Frame is not full!!!!!", 0);
 			i++;
 		}
 	}
 }
 
-static int	ft_check_strangers_fullness(t_game *data, char *m, int j)
+static int	ft_check_strangers_fullness(t_game *game, char *m, int j)
 {
 	int	i;
 	int	p;
@@ -102,45 +102,45 @@ static int	ft_check_strangers_fullness(t_game *data, char *m, int j)
 			&& m[i] != 'E' && m[i] != 'W' && m[i] != ' ')
 		{
 			m[i + 1] = '\0';
-			ft_error(data, ft_strjoin("Illegal character ", &(m[i])), 0);
+			ft_error(game, ft_strjoin("Illegal character ", &(m[i])), 0);
 		}
 		if (m[i] == 'S' || m[i] == 'N' || m[i] == 'W' || m[i] == 'E')
 		{
 			p++;
-			data->playdir = m[i];
-			data->player_base[0] = i;
-			data->player_base[1] = j;
+			game->playdir = m[i];
+			game->player_base[0] = i;
+			game->player_base[1] = j;
 		}
 		i++;
 	}
 	return (p);
 }
 
-void	ft_check_map(t_game *data)
+void	ft_check_map(t_game *game)
 {
 	int	i;
 	int	p;
 
 	i = 0;
 	p = 0;
-	if (data->map == NULL)
-		ft_error(data, "Map didn't parsed or file is empty", 0);
-	while (data->map[i] != NULL)
+	if (game->map == NULL)
+		ft_error(game, "Map didn't parsed or file is empty", 0);
+	while (game->map[i] != NULL)
 	{
-		p += ft_check_strangers_fullness(data, data->map[i], i);
+		p += ft_check_strangers_fullness(game, game->map[i], i);
 		i++;
 	}
 	if (p < 1)
-		ft_error(data, "Where is starting character?", 0);
+		ft_error(game, "Where is starting character?", 0);
 	if (p > 1)
-		ft_error(data, "Too many starting characters", 0);
+		ft_error(game, "Too many starting characters", 0);
 	i = 0;
-	while (i < data->high)
+	while (i < game->high)
 	{
-		ft_to_width(data, i, ft_strlen(data->map[i]), 0);
+		ft_to_width(game, i, ft_strlen(game->map[i]), 0);
 		i++;
 	}
-	ft_check_rectangularity_frame(data, data->map, 0);
-	if (data->map[0][data->width] == '\n')
-		data->map[0][data->width] = '\0';
+	ft_check_rectangularity_frame(game, game->map, 0);
+	if (game->map[0][game->width] == '\n')
+		game->map[0][game->width] = '\0';
 }

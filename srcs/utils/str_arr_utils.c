@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_arr_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: scoach <scoach@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hcrakeha <hcrakeha@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/23 16:44:14 by scoach            #+#    #+#             */
-/*   Updated: 2022/03/18 16:52:52 by scoach           ###   ########.fr       */
+/*   Created: 2022/01/23 16:44:14 by ftassada          #+#    #+#             */
+/*   Updated: 2022/03/27 17:35:49 by hcrakeha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_arr_to_arr(char ***big_arr, char **small_arr, int bln)
 		i++;
 	}
 	return (0);
-}	
+}
 
 char	**ft_arrjoin(char **arr1, char **arr2)
 {
